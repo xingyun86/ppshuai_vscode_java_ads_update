@@ -21,6 +21,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 
 import org.openqa.selenium.By;
+import org.openqa.selenium.Proxy;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.firefox.FirefoxOptions;
 import org.openqa.selenium.remote.RemoteWebDriver;
@@ -41,7 +42,7 @@ public class App {
     static RemoteWebDriver m_webDriver = null;
     static ArrayList<String> arrayList = null;
     static FirefoxOptions desiredCapabilities = null;
-    static int random_min = 7;
+    static int random_min = 10;
     static int random_max = 60;
     static String url_http = "http://";
     static String url_host = "127.0.0.1";
@@ -246,7 +247,10 @@ public class App {
             "http://www.ppsbbs.tech/forum-8.htm",
             "http://www.ppsbbs.tech/forum-9.htm"));
         String threadUrPrefix = "http://www.ppsbbs.tech/thread-", threadUrSuffix = ".htm";
-        desiredCapabilities = new FirefoxOptions().setHeadless(false);
+        Proxy proxy = new Proxy();
+        proxy.setAutodetect(false);
+        proxy.setHttpProxy("206.189.153.58:8080");
+        desiredCapabilities = new FirefoxOptions().setHeadless(false).setProxy(proxy);
 
         while (running(new String[] {})) {
             try {
@@ -381,9 +385,8 @@ public class App {
                         m_index++;
                     }
                     m_logger_main.info("End ArraySize=" + Integer.toString(arrayList.size()));
-                    
-                    
-                    for(int i = 1; i < 526; i++)
+                                        
+                    /*for(int i = 1; i < 526; i++)
                     {
                         String s = threadUrPrefix + Integer.toString(i) + threadUrSuffix;
                         m_webDriver.get(s);
@@ -393,7 +396,7 @@ public class App {
 
                         Thread.sleep((int)(random_min+Math.random()*(random_max-random_min+1)) * 1000);//随机random_min-random_max秒延迟
                         //m_webDriver.manage().deleteAllCookies();
-                    }
+                    }*/
                     // System.in.read();
                     if (m_webDriver != null) {
                         //
